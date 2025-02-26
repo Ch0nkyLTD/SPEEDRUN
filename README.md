@@ -16,6 +16,13 @@ A  very bad reference  c2, implant and client (initially) built in two lectures.
 ## Getting started
 - `@TODO:`
 
+### Pre req
+- python3
+- poetry
+- aarch64-gnu-linux toolchain 
+- build-essential 
+- make
+
 
 ### Setting up the server
 - `@TODO:`
