@@ -1,0 +1,7 @@
+CompileFlags:
+  Add: [
+    -I, ./../inc,
+    "-isystem", "/usr/include/c++/11",
+    "-isystem", "/usr/include/x86_64-linux-gnu/c++/11"
+  ]
+
