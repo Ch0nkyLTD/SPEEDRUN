@@ -1,4 +1,4 @@
-from speedrun.buildapp import init_db, db
+from speedrun.build_app import init_db, db
 from speedrun.app import app
 
 
