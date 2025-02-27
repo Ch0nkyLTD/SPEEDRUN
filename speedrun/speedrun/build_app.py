@@ -1,6 +1,8 @@
 from flask import Flask
 from speedrun.db import db
 from speedrun.demo import demo
+from speedrun.lp import lp
+from speedrun.admin import admin
 
 
 def build_app():
@@ -11,6 +13,8 @@ def build_app():
         SQLALCHEMY_DATABASE_URI="sqlite:///c2.db"
     )
     app.register_blueprint(demo, url_prefix="/demo")
+    app.register_blueprint(admin, url_prefix="/admin")
+    app.register_blueprint(lp)
     db.init_app(app)
     return app
 
