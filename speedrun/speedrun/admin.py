@@ -1,6 +1,14 @@
 from flask import Blueprint, request, jsonify
 from speedrun.db import db
-from speedrun.models import make_foo, Session, make_task, Task
+from speedrun.models import (
+    make_foo,
+    Session,
+    make_task,
+    Task,
+    TASK_CREATED,
+    TASK_RUNNING,
+    TASK_STARTED,
+)
 from dataclasses import dataclass, asdict
 
 admin = Blueprint("admin", __name__)
@@ -24,6 +32,25 @@ def handle_make_task():
     db.session.add(t)
     db.session.commit()
     return jsonify({"status": True, "task_id": t.id})
+
+
+@admin.route("/session/task/list2", methods=["GET"])
+def get_active_tasks():
+    data = request.get_json()
+
+    if not data or "session_id" not in data:
+        return jsonify({"error": "Session ID is required"}), 400
+
+    session_id = data["session_id"]
+
+    # Query tasks with the given session_id that are not completed or failed
+    active_tasks = (
+        Task.query.filter_by(session_id=session_id)
+        .filter(Task.status.in_([TASK_CREATED, TASK_STARTED, TASK_RUNNING]))
+        .all()
+    )
+
+    return jsonify([task.toJSON() for task in active_tasks]), 200
 
 
 @admin.route("/session/task/list", methods=["GET"])

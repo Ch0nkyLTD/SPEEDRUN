@@ -52,6 +52,22 @@ class Task(db.Model):
         return asdict(self)
 
 
+def todo_tasks(session_id: int):
+    return (
+        Task.query.filter_by(session_id=session_id)
+        .filter(Task.status == TASK_CREATED)
+        .all()
+    )
+
+
+def active_tasks(session_id: int):
+    return (
+        Task.query.filter_by(session_id=session_id)
+        .filter(Task.status.in_([TASK_CREATED, TASK_STARTED, TASK_RUNNING]))
+        .all()
+    )
+
+
 def make_task(session_id: int, cmd: str, args: str):
     now = int(time.time())
     return Task(

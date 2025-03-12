@@ -1,7 +1,7 @@
 # this is a listenering post blueprint
 from flask import Blueprint, request, jsonify, abort
 from speedrun.db import db
-from speedrun.models import make_foo, Foo, Task, TASK_STARTED, TASK_CREATED
+from speedrun.models import make_foo, Foo, Task, TASK_STARTED, TASK_CREATED, todo_tasks
 from dataclasses import dataclass, asdict
 import time
 from speedrun.models import Session, SESSION_OK
@@ -33,6 +33,7 @@ def handle_session_register():
 def handle_session_checking(id: int):
     checkin_data = request.json
     if checkin_data:
+        print(f"agent i:{id} checking in with data: {checkin_data}")
         task_id = checkin_data.get("id")
         t = (
             db.session.query(Task)
@@ -56,7 +57,8 @@ def handle_session_checking(id: int):
         .first()
     )
     if t is None:
-        return jsonify(None)
+        return jsonify({})
+    print(f"agent i:{id} pulled down task: {t}")
     t.status = TASK_STARTED
     db.session.add(t)
     db.session.commit()
