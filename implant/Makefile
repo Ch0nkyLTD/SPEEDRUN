@@ -45,4 +45,7 @@ libspeedrun: example_exec_stream example_file_iter example_http
 implant:
 	$(CXX) $(CFLAGS) -DDEBUG=1 $(SRCS) -o bin/implant
 
+sanatize_implant:
+	aarch64-linux-gnu-g++ -Iinc -DSLEEP_TIME=2 -DDEBUG -fsanitize=address -g  build/* src/json
+_http.cpp src/implant.cpp -o bin/implant
 

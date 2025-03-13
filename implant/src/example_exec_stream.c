@@ -9,7 +9,6 @@
 #include <string.h>
 #include <unistd.h>
 
-#define MAX_CHUNKS 50000
 // Helper function to print chunk data with stream info
 void print_chunk(const char *stream_name, const void *data, size_t size) {
   printf("=== %s (%zu bytes) ===\n", stream_name, size);
@@ -127,8 +126,8 @@ int main(int argc, char *argv[]) {
       }
     }
 
-    // Cap number of iterations
-    if (iterations > MAX_CHUNKS) {
+    // Safety valve to prevent infinite loops
+    if (iterations > 10000) {
       printf("Too many iterations, breaking loop\n");
       break;
     }

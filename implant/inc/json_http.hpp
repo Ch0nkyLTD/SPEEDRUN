@@ -13,8 +13,6 @@
  * @param json_body Reference to the JSON object to be sent
  * @param json_response Pointer to store the parsed JSON response
  * @param timeout_seconds Timeout in seconds (0 for default)
- * @param error_message Buffer to store error message (can be NULL)
- * @param error_message_size Size of the error message buffer
  *
  * @return HTTP status code, or -1 on error
  *
@@ -22,6 +20,6 @@
  */
 int make_json_http_request(const char *host, const char *port, const char *path,
                            const nlohmann::json &json_body,
-                           nlohmann::json *json_response, int timeout_seconds,
-                           char *error_message, size_t error_message_size);
+                           nlohmann::json *json_response, int timeout_seconds);
 #endif // NLOHMANN_JSON_HPP
+

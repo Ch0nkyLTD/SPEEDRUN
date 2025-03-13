@@ -2,19 +2,23 @@
 #include "http_client.h"
 #include <unistd.h>
 
-//  Example
+/**
+ * Example usage
+ */
 int example_usage() {
   // Example request
-  const char *headers[] = {"Accept: */*", "User-Agent: ch0nky",
+  const char *headers[] = {"Accept: */*", "User-Agent: SimpleHttpClient/1.0",
                            "Connection: close", NULL};
 
+  const char fuck[] =
+      "{\"whaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAt\": \"the_fuck\"}";
   HttpRequest request = {
       .verb = "GET",
       .host = "example.com",
       .path = "/",
       .headers = headers,
-      .body = NULL,
-      .body_size = 0,
+      .body = fuck,
+      .body_size = sizeof(fuck),
       .port = "80",
       .timeout_seconds = 5 // 5 second timeout
   };
@@ -46,6 +50,8 @@ int example_usage() {
 }
 
 int main() {
-  example_usage();
+  for (int i = 0; i < 10; i++) {
+    example_usage();
+  }
   return 0;
 }

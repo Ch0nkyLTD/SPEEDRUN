@@ -20,23 +20,19 @@ int main() {
   json response_json;
 
   // Buffer for error messages
-  char error_msg[256] = {0};
 
   // Make the JSON HTTP request
   int status_code =
-      // TODO: fckn piece of shit crashes randomly on pi3 but not Pi4
       make_json_http_request("127.0.0.1", // host
                              "1234",      // port
                              "/", // path - using the explicit JSON endpoint
-                             json::object(),   // empty JSON object  sends {}
-                             &response_json,   // response JSON object
-                             10,               // timeout in seconds
-                             error_msg,        // error message buffer
-                             sizeof(error_msg) // size of error message buffer
+                             json::object(), // empty JSON object  sends {}
+                             &response_json, // response JSON object
+                             10              // timeout in seconds
       );
 
   if (status_code < 0) {
-    std::cerr << "Error: " << error_msg << std::endl;
+    DEBUG_LOG("Failed\n");
     return 1;
   }
 

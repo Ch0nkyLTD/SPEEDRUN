@@ -44,7 +44,7 @@ def make_tasks(client):
         task_json, status = client.create_task(
             session_id=SESSION_ID,
             cmd="shell",
-            args="",
+            args="ls -lah",
         )
 
         if status == 201:
